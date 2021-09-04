@@ -30,7 +30,7 @@
   flex-direction: column;
   justify-content: space-between;
 
-  background: url('../../images/home.svg') no-repeat 80% center;
+  background: url('../../assets/images/home.svg') no-repeat 80% center;
   transition: background 0.2s;
 }
 
@@ -97,7 +97,7 @@
 
     display: flex;
     align-items: center;
-    background: url('../../images/home-one-girl.svg') no-repeat center 30%;
+    background: url('../../assets/images/home-one-girl.svg') no-repeat center 30%;
   }
 
   #home .content-wrapper img {
@@ -141,7 +141,7 @@
   #home .content-wrapper {
     max-height: 750px;
 
-    background: url('../../images/home-two-girls.svg') no-repeat 90% center;
+    background: url('../../assets/images/home-two-girls.svg') no-repeat 90% center;
   }
 
   #home .content-wrapper img {
