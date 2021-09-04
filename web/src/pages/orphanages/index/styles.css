@@ -39,7 +39,7 @@
   font-weight: 800;
 }
 
-#orphanages-index .map-container {
+#orphanages-index .leaflet-container {
   z-index: 5;
 }
 
