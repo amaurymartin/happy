@@ -1,0 +1,143 @@
+#orphanages-index {
+  width: 100vw;
+  height: 100vh;
+
+  position: relative;
+  display: flex;
+}
+
+#orphanages-index aside {
+  width: 440px;
+  background: linear-gradient(329.54deg, #29b6d1 0%, #00c7c7 100%);
+  padding: 80px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+#orphanages-index aside h2 {
+  font-size: 40px;
+  font-weight: 800;
+  line-height: 42px;
+  margin-top: 64px;
+}
+
+#orphanages-index aside p {
+  line-height: 28px;
+  margin-top: 24px;
+}
+
+#orphanages-index aside footer {
+  display: flex;
+  flex-direction: column;
+
+  line-height: 24px;
+}
+
+#orphanages-index aside footer strong {
+  font-weight: 800;
+}
+
+#orphanages-index .map-container {
+  z-index: 5;
+}
+
+#orphanages-index .new-orphanage {
+  position: absolute;
+  right: 40px;
+  bottom: 40px;
+
+  z-index: 10;
+
+  width: 64px;
+  height: 64px;
+  background: #15c3d6;
+  border-radius: 20px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#orphanages-index .new-orphanage:hover {
+  background: #17d6eb;
+}
+
+#orphanages-index .map-popup .map-popup-content-wrapper {
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 20px;
+  box-shadow: none;
+}
+
+#orphanages-index .map-popup .map-popup-content {
+  color: #0089a5;
+  font-size: 20px;
+  font-weight: bold;
+  margin: 8px 12px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#orphanages-index .map-popup .map-popup-content a {
+  width: 40px;
+  height: 40px;
+  background: #15c3d6;
+  box-shadow: 17.2868px 27.6589px 41.4884 rgba(23, 142, 166, 0.16);
+  border-radius: 12px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#orphanages-index .map-popup .leaflet-popup-tip-container {
+  display: none;
+}
+
+@media (max-width: 720px) {
+  #orphanages-index {
+    flex-direction: column-reverse;
+
+    border-bottom: 50px;
+  }
+
+  #orphanages-index aside {
+    width: 100%;
+    padding: 15px 0 15px 0;
+
+    text-align: center;
+  }
+
+  #orphanages-index aside img {
+    width: 50px;
+  }
+
+  #orphanages-index aside h2 {
+    font-size: 20px;
+    line-height: 20px;
+
+    margin-top: 10px;
+  }
+
+  #orphanages-index aside p {
+    font-size: 14px;
+    line-height: 16px;
+
+    margin-top: 10px;
+  }
+
+  #orphanages-index aside footer {
+    margin-top: 10px;
+
+    font-size: 16px;
+    line-height: 16px;
+  }
+
+  #orphanages-index .new-orphanage {
+    right: 10px;
+    top: 10px;
+  }
+}
