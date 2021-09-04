@@ -35,11 +35,13 @@
 }
 
 #home .content-wrapper img {
-  margin-top: 40px;
+  margin-top: 0px;
 }
 
 #home .content-wrapper main {
-  max-width: 350px;
+  max-width: 450px;
+
+  margin-bottom: 40px;
 }
 
 #home .content-wrapper main h1 {
@@ -70,10 +72,12 @@
   font-weight: 800;
 }
 
-.content-wrapper .enter-app {
+.content-wrapper .map-link {
   position: absolute;
   right: 0;
   bottom: 0;
+
+  margin-bottom: 60px;
 
   width: 80px;
   height: 80px;
@@ -87,7 +91,7 @@
   transition: background-color 0.2s;
 }
 
-.content-wrapper .enter-app:hover {
+.content-wrapper .map-link:hover {
   background: #96feff;
 }
 
@@ -97,7 +101,8 @@
 
     display: flex;
     align-items: center;
-    background: url('../../assets/images/home-one-girl.svg') no-repeat center 30%;
+    background: url('../../assets/images/home-one-girl.svg') no-repeat center
+      30%;
   }
 
   #home .content-wrapper img {
@@ -132,7 +137,7 @@
     margin-bottom: 40px;
   }
 
-  .content-wrapper .enter-app {
+  .content-wrapper .map-link {
     margin-bottom: 25px;
   }
 }
@@ -141,7 +146,8 @@
   #home .content-wrapper {
     max-height: 750px;
 
-    background: url('../../assets/images/home-two-girls.svg') no-repeat 90% center;
+    background: url('../../assets/images/home-two-girls.svg') no-repeat 90%
+      center;
   }
 
   #home .content-wrapper img {
