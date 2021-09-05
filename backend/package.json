@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "tsnd --respawn src/server.ts --transpile-only",
     "format": "yarn prettier --write .",
-    "lint": "eslint --ext .ts --fix"
+    "lint": "eslint --ext .ts --fix",
+    "typeorm": "tsnd ./node_modules/typeorm/cli.js"
   },
   "dependencies": {
     "cors": "^2.8.5",
