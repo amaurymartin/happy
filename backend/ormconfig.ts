@@ -9,4 +9,5 @@ export default {
   cli: {
     migrationsDir: './src/db/migrations',
   },
+  entities: ['./src/models/entities/*.ts'],
 };
