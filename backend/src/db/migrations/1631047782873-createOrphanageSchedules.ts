@@ -64,6 +64,7 @@ export class createOrphanageSchedules1631047782873
         columnNames: ['orphanage_id'],
         referencedTableName: 'orphanages',
         referencedColumnNames: ['id'],
+        onDelete: 'CASCADE',
       }),
     );
   }
