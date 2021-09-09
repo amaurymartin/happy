@@ -56,11 +56,13 @@ export class createOrphanages1631046567289 implements MigrationInterface {
             name: 'created_at',
             type: 'timestamp',
             isNullable: false,
+            default: 'CURRENT_TIMESTAMP',
           },
           {
             name: 'updated_at',
             type: 'timestamp',
             isNullable: false,
+            default: 'CURRENT_TIMESTAMP',
           },
         ],
       }),

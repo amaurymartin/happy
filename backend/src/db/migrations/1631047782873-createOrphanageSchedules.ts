@@ -46,11 +46,13 @@ export class createOrphanageSchedules1631047782873
             name: 'created_at',
             type: 'timestamp',
             isNullable: false,
+            default: 'CURRENT_TIMESTAMP',
           },
           {
             name: 'updated_at',
             type: 'timestamp',
             isNullable: false,
+            default: 'CURRENT_TIMESTAMP',
           },
         ],
       }),
