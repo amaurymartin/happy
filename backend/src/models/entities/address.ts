@@ -1,4 +1,10 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
 @Entity('addresses')
 export default class Address {
@@ -9,7 +15,7 @@ export default class Address {
   latitude: number;
 
   @Column()
-  longitude: string;
+  longitude: number;
 
   @Column()
   street: string;
@@ -20,7 +26,7 @@ export default class Address {
   @Column()
   complement: string;
 
-  @Column('zip_code')
+  @Column({ name: 'zip_code' })
   zipCode: string;
 
   @Column()
@@ -32,9 +38,9 @@ export default class Address {
   @Column()
   country: string;
 
-  @Column('created_at')
+  @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
 
-  @Column('updated_at')
+  @UpdateDateColumn({ name: 'updated_at' })
   updatedAt: Date;
 }

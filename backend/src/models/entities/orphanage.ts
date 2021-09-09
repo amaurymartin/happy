@@ -1,12 +1,24 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  JoinColumn,
+  OneToMany,
+  OneToOne,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
+import Address from './address';
+import OrphanageSchecule from './orphanageSchecule';
 
 @Entity('orphanages')
 export default class Orphanage {
   @PrimaryGeneratedColumn('increment')
   id: number;
 
-  @Column('address_id')
-  addressId: number;
+  @OneToOne(() => Address)
+  @JoinColumn({ name: 'address_id' })
+  address: Address;
 
   @Column()
   key: string;
@@ -23,9 +35,12 @@ export default class Orphanage {
   @Column()
   instructions: string;
 
-  @Column('created_at')
+  @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
 
-  @Column('updated_at')
+  @UpdateDateColumn({ name: 'updated_at' })
   updatedAt: Date;
+
+  @OneToMany(() => OrphanageSchecule, (schedule) => schedule.orphanage)
+  schedules: OrphanageSchecule[];
 }

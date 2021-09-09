@@ -1,25 +1,35 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
+import Orphanage from './orphanage';
 
 @Entity('orphanage_schedules')
 export default class OrphanageSchecule {
   @PrimaryGeneratedColumn('increment')
   id: number;
 
-  @Column('orphanage_id')
-  orphanageId: number;
+  @ManyToOne(() => Orphanage, (orphanage) => orphanage.schedules)
+  @JoinColumn({ name: 'orphanage_id' })
+  orphanage: Orphanage;
 
-  @Column('week_day')
+  @Column({ name: 'week_day' })
   weekDay: number;
 
-  @Column('starts_at')
+  @Column({ name: 'starts_at' })
   startsAt: string;
 
-  @Column('ends_at')
+  @Column({ name: 'ends_at' })
   endsAt: string;
 
-  @Column('created_at')
+  @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
 
-  @Column('updated_at')
+  @UpdateDateColumn({ name: 'updated_at' })
   updatedAt: Date;
 }
