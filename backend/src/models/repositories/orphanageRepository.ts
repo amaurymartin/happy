@@ -1,4 +1,4 @@
-import { getRepository } from 'typeorm';
+import { EntityManager, getRepository } from 'typeorm';
 import { v4 as uuidv4 } from 'uuid';
 import Address from '../entities/address';
 
@@ -6,6 +6,7 @@ import Orphanage from '../entities/orphanage';
 
 class OrphanageRepository {
   static async create(
+    manager: EntityManager,
     name: string,
     nickname: string,
     about: string,
@@ -24,7 +25,7 @@ class OrphanageRepository {
     });
 
     // eslint-disable-next-line no-console
-    return repository.save(orphanage).catch((error) => console.error(error));
+    return manager.save(orphanage).catch((error) => console.error(error));
   }
 }
 

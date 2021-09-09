@@ -1,18 +1,34 @@
-import { getRepository } from 'typeorm';
+import { EntityManager, getRepository } from 'typeorm';
+import Orphanage from '../entities/orphanage';
 
 import OrphanageSchecule from '../entities/orphanageSchecule';
 import { Schedule } from '../types/schedule';
 
 class OrphanageScheculeRepository {
-  static async create(schedules: Schedule[]) {
+  static async create(
+    manager: EntityManager,
+    orphanage: Orphanage,
+    schedules: Schedule[],
+  ) {
     const repository = getRepository(OrphanageSchecule);
 
-    const orphanageSchecules = repository.create(schedules);
+    if (!schedules) return undefined;
 
-    // eslint-disable-next-line no-console
-    return repository
-      .save(orphanageSchecules)
-      .catch((error) => console.error(error));
+    const parsedSchecules = schedules.map((schedule) => ({
+      orphanage,
+      weekDay: schedule.weekDay,
+      startsAt: schedule.startsAt,
+      endsAt: schedule.endsAt,
+    }));
+
+    const orphanageSchecules = repository.create(parsedSchecules);
+
+    return (
+      manager
+        .save(orphanageSchecules)
+        // eslint-disable-next-line no-console
+        .catch((error) => console.error(error))
+    );
   }
 }
 

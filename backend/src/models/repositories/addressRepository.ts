@@ -1,9 +1,10 @@
-import { getRepository } from 'typeorm';
+import { EntityManager, getRepository } from 'typeorm';
 
 import Address from '../entities/address';
 
 class AddressRepository {
   static async create(
+    manager: EntityManager,
     latitude: number,
     longitude: number,
     street: string,
@@ -29,7 +30,7 @@ class AddressRepository {
     });
 
     // eslint-disable-next-line no-console
-    return repository.save(address).catch((error) => console.error(error));
+    return manager.save(address).catch((error) => console.error(error));
   }
 }
 
