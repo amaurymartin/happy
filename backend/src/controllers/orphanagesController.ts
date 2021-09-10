@@ -11,6 +11,7 @@ import { OrphanageCreate } from '../models/types/orphanageCreate';
 import addressRepository from '../models/repositories/addressRepository';
 import orphanageRepository from '../models/repositories/orphanageRepository';
 import orphanageScheculeRepository from '../models/repositories/orphanageScheduleRepository';
+import Orphanage from '../models/entities/orphanage';
 
 class OrphanagesController {
   @Transaction()
@@ -80,6 +81,36 @@ class OrphanagesController {
     }
 
     return res.status(201).json(orphanage);
+  }
+
+  static async index(req: Request, res: Response) {
+    const { city, state, country } = req.query;
+
+    const orphanages: Orphanage[] = await orphanageRepository.index(
+      String(city),
+      String(state),
+      String(country),
+    );
+
+    const count = orphanages.length || 0;
+    res.header('X-Total-Count', count.toString());
+
+    return res.status(200).json(orphanages);
+  }
+
+  static async show(req: Request, res: Response) {
+    const { key } = req.params;
+
+    const orphanage: Orphanage = await orphanageRepository.show(String(key));
+
+    if (!orphanage)
+      res.status(404).json({
+        errors: {
+          message: 'Not Found',
+        },
+      });
+
+    return res.status(200).json(orphanage);
   }
 }
 

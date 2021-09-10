@@ -10,5 +10,7 @@ routes.get('/healthcheck', (_req, res) => {
 
 // Orphanages
 routes.post('/orphanages', OrphanagesController.create);
+routes.get('/orphanages', OrphanagesController.index);
+routes.get('/orphanages/:key', OrphanagesController.show);
 
 export default routes;

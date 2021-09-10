@@ -10,4 +10,5 @@ export default {
     migrationsDir: './src/db/migrations',
   },
   entities: ['./src/models/entities/*.ts'],
+  // logging: true,
 };

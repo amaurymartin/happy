@@ -27,6 +27,38 @@ class OrphanageRepository {
     // eslint-disable-next-line no-console
     return manager.save(orphanage).catch((error) => console.error(error));
   }
+
+  // eslint-disable-next-line no-unused-vars
+  static async index(city: string, state: string, country: string) {
+    const repository = getRepository(Orphanage);
+
+    return repository
+      .find({
+        relations: ['address', 'schedules'],
+      })
+      .catch((error) => {
+        // eslint-disable-next-line no-console
+        console.error(error);
+        return [];
+      });
+  }
+
+  static async show(key: string) {
+    const repository = getRepository(Orphanage);
+
+    const orphanages: Orphanage[] = await repository
+      .find({
+        relations: ['address', 'schedules'],
+        where: { key },
+      })
+      .catch((error) => {
+        // eslint-disable-next-line no-console
+        console.error(error);
+        return [] as Orphanage[];
+      });
+
+    return orphanages[0];
+  }
 }
 
 export default OrphanageRepository;
