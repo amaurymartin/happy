@@ -46,18 +46,16 @@ class OrphanageRepository {
   static async show(key: string) {
     const repository = getRepository(Orphanage);
 
-    const orphanages: Orphanage[] = await repository
-      .find({
+    return repository
+      .findOne({
         relations: ['address', 'schedules'],
         where: { key },
       })
       .catch((error) => {
         // eslint-disable-next-line no-console
         console.error(error);
-        return [] as Orphanage[];
+        return undefined;
       });
-
-    return orphanages[0];
   }
 }
 

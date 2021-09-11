@@ -101,7 +101,7 @@ class OrphanagesController {
   static async show(req: Request, res: Response) {
     const { key } = req.params;
 
-    const orphanage: Orphanage = await orphanageRepository.show(String(key));
+    const orphanage = await orphanageRepository.show(String(key));
 
     if (!orphanage)
       res.status(404).json({
