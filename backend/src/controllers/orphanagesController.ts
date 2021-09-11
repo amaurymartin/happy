@@ -95,7 +95,11 @@ class OrphanagesController {
     const count = orphanages.length || 0;
     res.header('X-Total-Count', count.toString());
 
-    return res.status(200).json(orphanages);
+    return res.status(200).json({
+      orphanages: orphanages.map((orphanage) =>
+        OrphanagesController.toJson(orphanage),
+      ),
+    });
   }
 
   static async show(req: Request, res: Response) {
@@ -110,7 +114,35 @@ class OrphanagesController {
         },
       });
 
-    return res.status(200).json(orphanage);
+    return res.status(200).json({
+      orphanage: OrphanagesController.toJson(orphanage!),
+    });
+  }
+
+  static toJson(orphanage: Orphanage) {
+    return {
+      key: orphanage.key,
+      name: orphanage.name,
+      nickname: orphanage.nickname,
+      about: orphanage.about,
+      instructions: orphanage.instructions,
+      address: {
+        latitude: Number(orphanage.address.latitude),
+        longitude: Number(orphanage.address.longitude),
+        street: orphanage.address.street,
+        number: orphanage.address.number,
+        complement: orphanage.address.complement,
+        zipCode: orphanage.address.zipCode,
+        city: orphanage.address.city,
+        state: orphanage.address.state,
+        country: orphanage.address.country,
+      },
+      schedules: orphanage.schedules.map((schedule) => ({
+        weekDay: Number(schedule.weekDay),
+        startsAt: schedule.startsAt,
+        endsAt: schedule.endsAt,
+      })),
+    };
   }
 }
 
