@@ -10,8 +10,6 @@ class OrphanageScheculeRepository {
     orphanage: Orphanage,
     schedules: Schedule[],
   ) {
-    const repository = getRepository(OrphanageSchecule);
-
     if (!schedules) return undefined;
 
     const parsedSchecules = schedules.map((schedule) => ({
@@ -21,7 +19,8 @@ class OrphanageScheculeRepository {
       endsAt: schedule.endsAt,
     }));
 
-    const orphanageSchecules = repository.create(parsedSchecules);
+    const orphanageSchecules =
+      getRepository(OrphanageSchecule).create(parsedSchecules);
 
     return (
       manager
@@ -29,6 +28,25 @@ class OrphanageScheculeRepository {
         // eslint-disable-next-line no-console
         .catch((error) => console.error(error))
     );
+  }
+
+  static async findByOrphanage(orphanageId: number) {
+    return getRepository(OrphanageSchecule)
+      .find({
+        where: { orphanage: orphanageId },
+      })
+      .catch((error) => {
+        // eslint-disable-next-line no-console
+        console.error(error);
+        return [];
+      });
+  }
+
+  static async destroyAll(manager: EntityManager, orphanageId: number) {
+    const orphanageSchecules =
+      await OrphanageScheculeRepository.findByOrphanage(orphanageId);
+
+    manager.remove(orphanageSchecules);
   }
 }
 
