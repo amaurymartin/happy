@@ -8,7 +8,9 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+
 import Address from './address';
+import OrphanageImage from './orphanageImage';
 import OrphanageSchecule from './orphanageSchecule';
 
 @Entity('orphanages')
@@ -43,4 +45,7 @@ export default class Orphanage {
 
   @OneToMany(() => OrphanageSchecule, (schedule) => schedule.orphanage)
   schedules: OrphanageSchecule[];
+
+  @OneToMany(() => OrphanageImage, (image) => image.orphanage)
+  images: OrphanageImage[];
 }
