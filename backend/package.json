@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "tsnd --respawn src/server.ts --transpile-only",
+    "dev": "tsnd --respawn src/app.ts --transpile-only",
     "format": "yarn prettier --write .",
     "lint": "eslint --ext .ts --fix",
     "typeorm": "tsnd ./node_modules/typeorm/cli.js"

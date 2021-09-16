@@ -1,14 +1,13 @@
-import express from 'express';
-import cors from 'cors';
-import path from 'path';
+import dotenv from 'dotenv';
 
-import routes from './routes';
+import server from './server';
+import './db/connection';
 
-const app = express();
+dotenv.config();
 
-app.use(cors({ exposedHeaders: 'X-Total-Count' }));
-app.use(express.json());
-app.use(routes);
-app.use('/uploads', express.static(path.resolve(__dirname, '..', 'uploads')));
+const PORT = process.env.PORT || 3001;
 
-export default app;
+server.listen(PORT, () => {
+  // eslint-disable-next-line no-console
+  console.log(`Listening on port: ${PORT}`);
+});
