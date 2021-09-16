@@ -34,7 +34,7 @@ class OrphanageRepository {
   static async index(city: string, state: string, country: string) {
     return getRepository(Orphanage)
       .find({
-        relations: ['address', 'schedules'],
+        relations: ['address', 'schedules', 'images'],
       })
       .catch((error) => {
         // eslint-disable-next-line no-console
@@ -46,7 +46,7 @@ class OrphanageRepository {
   static async show(key: string) {
     return getRepository(Orphanage)
       .findOne({
-        relations: ['address', 'schedules'],
+        relations: ['address', 'schedules', 'images'],
         where: { key },
       })
       .catch((error) => {
