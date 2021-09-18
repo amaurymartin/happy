@@ -1,8 +1,11 @@
 import { useState } from 'react';
 
-import { MapContainer, TileLayer } from 'react-leaflet';
 import { Link } from 'react-router-dom';
-import { FiPlus } from 'react-icons/fi';
+import { FiArrowRight, FiPlus } from 'react-icons/fi';
+
+// eslint-disable-next-line object-curly-newline
+import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
+import Leaflet from 'leaflet';
 
 import mapMarkerImg from '../../../assets/images/map-marker.svg';
 
@@ -15,6 +18,12 @@ const OrphanagesIndex: React.FC = () => {
   const [currentPosition, setCurrentPosition] = useState<[number, number]>([
     -3.7436121, -38.5194538,
   ]);
+
+  const mapMarker = Leaflet.icon({
+    iconUrl: mapMarkerImg,
+    iconSize: [42, 42],
+    popupAnchor: [0, -10],
+  });
 
   return (
     <div id="orphanages-index">
@@ -41,6 +50,20 @@ const OrphanagesIndex: React.FC = () => {
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
+
+        <Marker icon={mapMarker} position={currentPosition}>
+          <Popup
+            className="map-popup"
+            closeButton={false}
+            minWidth={240}
+            maxWidth={240}
+          >
+            <p>First Orphanage</p>
+            <Link to="/orphanages/1">
+              <FiArrowRight size={20} color="#000" />
+            </Link>
+          </Popup>
+        </Marker>
       </MapContainer>
 
       <Link to="/orphanages/new" className="new-orphanage">
