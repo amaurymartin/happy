@@ -1,13 +1,13 @@
 import { useState } from 'react';
 
-import { useHistory } from 'react-router-dom';
-
-import { FiArrowLeft, FiPlus } from 'react-icons/fi';
+import { FiPlus } from 'react-icons/fi';
 
 import { MapContainer, Marker, TileLayer } from 'react-leaflet';
 import Leaflet from 'leaflet';
 
 import mapMarkerImg from '../../../assets/images/map-marker.svg';
+
+import Sidebar from '../../../components/sidebar';
 
 import './styles.css';
 
@@ -23,19 +23,9 @@ const OrphanageNew: React.FC = () => {
     popupAnchor: [0, -10],
   });
 
-  const { goBack } = useHistory();
-
   return (
     <div id="orphanage-new">
-      <aside>
-        <img src={mapMarkerImg} alt="Happy" />
-
-        <footer>
-          <button type="button" onClick={goBack}>
-            <FiArrowLeft size={24} color="#FFF" />
-          </button>
-        </footer>
-      </aside>
+      <Sidebar />
 
       <main>
         <form className="orphanage-new-form">
