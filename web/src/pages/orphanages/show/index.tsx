@@ -6,11 +6,9 @@ import { FaWhatsapp } from 'react-icons/fa';
 import { FiClock, FiInfo } from 'react-icons/fi';
 
 import { MapContainer, Marker, TileLayer } from 'react-leaflet';
-import Leaflet from 'leaflet';
-
-import mapMarkerImg from '../../../assets/images/map-marker.svg';
 
 import Sidebar from '../../../components/sidebar';
+import mapMarker from '../../../utils/mapMarker';
 
 import './styles.css';
 
@@ -19,12 +17,6 @@ const OrphanageShow: React.FC = () => {
   const [currentPosition, setCurrentPosition] = useState<[number, number]>([
     -3.7436121, -38.5194538,
   ]);
-
-  const mapMarker = Leaflet.icon({
-    iconUrl: mapMarkerImg,
-    iconSize: [42, 42],
-    popupAnchor: [0, -10],
-  });
 
   return (
     <div id="orphanage-show">

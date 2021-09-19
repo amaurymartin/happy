@@ -5,11 +5,10 @@ import { FiArrowRight, FiPlus } from 'react-icons/fi';
 
 // eslint-disable-next-line object-curly-newline
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
-import Leaflet from 'leaflet';
 
 import mapMarkerImg from '../../../assets/images/map-marker.svg';
 
-import 'leaflet/dist/leaflet.css';
+import mapMarker from '../../../utils/mapMarker';
 
 import './styles.css';
 
@@ -18,12 +17,6 @@ const OrphanagesIndex: React.FC = () => {
   const [currentPosition, setCurrentPosition] = useState<[number, number]>([
     -3.7436121, -38.5194538,
   ]);
-
-  const mapMarker = Leaflet.icon({
-    iconUrl: mapMarkerImg,
-    iconSize: [42, 42],
-    popupAnchor: [0, -10],
-  });
 
   return (
     <div id="orphanages-index">
