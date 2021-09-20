@@ -100,7 +100,7 @@ const OrphanagesIndex: React.FC = () => {
           ))}
         </MapContainer>
       ) : (
-        'LOADING MAP'
+        <h1>LOADING MAP</h1>
       )}
 
       <Link to="/orphanages/new" className="new-orphanage">
