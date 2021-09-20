@@ -10,7 +10,7 @@ type Orphanage = {
   instructions: string;
   address: Address;
   schedules: Schedule[];
-  Images: Image[];
+  images: Image[];
 };
 
 export default Orphanage;

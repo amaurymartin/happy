@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 import { FaWhatsapp } from 'react-icons/fa';
 import { FiClock, FiInfo } from 'react-icons/fi';
@@ -10,6 +10,13 @@ import { MapContainer, Marker, TileLayer } from 'react-leaflet';
 import Sidebar from '../../../components/sidebar';
 import mapMarker from '../../../utils/mapMarker';
 
+import Orphanage from '../../../types/entities/orphanage/orphanage';
+import OrphanagesShow from '../../../types/responses/orphanages/show';
+
+import api from '../../../services/api';
+
+// eslint-disable-next-line no-unused-vars
+
 import './styles.css';
 
 const OrphanageShow: React.FC = () => {
@@ -17,6 +24,29 @@ const OrphanageShow: React.FC = () => {
   const [currentPosition, setCurrentPosition] = useState<[number, number]>([
     -3.7436121, -38.5194538,
   ]);
+  const [orphanage, setOrphanage] = useState<Orphanage>({} as Orphanage);
+
+  const params: { key: string } = useParams();
+
+  useEffect(() => {
+    api
+      .get<OrphanagesShow>(`orphanages/${params.key}`)
+      .then((response) => setOrphanage(response.data.orphanage))
+      .catch((response) => {
+        // eslint-disable-next-line no-console
+        console.log('response', response);
+        // eslint-disable-next-line no-alert
+        alert('Error on loading orphanage info. Please refresh the page');
+      });
+  }, [params]);
+
+  if (Object.keys(orphanage).length === 0) return <p>Loading Orphanage info</p>;
+
+  function hasImages() {
+    if (Object.keys(orphanage).length === 0) return false;
+
+    return orphanage.images.length > 0;
+  }
 
   return (
     <div id="orphanage-show">
@@ -24,57 +54,28 @@ const OrphanageShow: React.FC = () => {
 
       <main>
         <div className="orphanage-details">
-          <img
-            src="https://www.gcd.com.br/wp-content/uploads/2020/08/safe_image.jpg"
-            alt="First Orphanage"
-          />
+          {hasImages() && (
+            <img src={orphanage.images[0].url} alt={orphanage.name} />
+          )}
 
           <div className="images">
-            <button className="active" type="button">
-              <img
-                src="https://www.gcd.com.br/wp-content/uploads/2020/08/safe_image.jpg"
-                alt="First Orphanage"
-              />
-            </button>
-            <button type="button">
-              <img
-                src="https://www.gcd.com.br/wp-content/uploads/2020/08/safe_image.jpg"
-                alt="First Orphanage"
-              />
-            </button>
-            <button type="button">
-              <img
-                src="https://www.gcd.com.br/wp-content/uploads/2020/08/safe_image.jpg"
-                alt="First Orphanage"
-              />
-            </button>
-            <button type="button">
-              <img
-                src="https://www.gcd.com.br/wp-content/uploads/2020/08/safe_image.jpg"
-                alt="First Orphanage"
-              />
-            </button>
-            <button type="button">
-              <img
-                src="https://www.gcd.com.br/wp-content/uploads/2020/08/safe_image.jpg"
-                alt="First Orphanage"
-              />
-            </button>
-            <button type="button">
-              <img
-                src="https://www.gcd.com.br/wp-content/uploads/2020/08/safe_image.jpg"
-                alt="First Orphanage"
-              />
-            </button>
+            {orphanage.images.map((image) => (
+              <button className="active" type="button">
+                <img src={image.url} alt={orphanage.name} key={image.url} />
+              </button>
+            ))}
           </div>
 
           <div className="orphanage-details-content">
-            <h1>First Orphanage</h1>
-            <p>About First Orphanage</p>
+            <h1>{orphanage.name}</h1>
+            <p>{orphanage.about}</p>
 
             <div className="map-container">
               <MapContainer
-                center={currentPosition}
+                center={[
+                  orphanage.address.latitude,
+                  orphanage.address.longitude,
+                ]}
                 zoom={16}
                 style={{ width: '100%', height: 280 }}
                 touchZoom={false}
@@ -86,20 +87,31 @@ const OrphanageShow: React.FC = () => {
                 />
                 <Marker
                   icon={mapMarker}
-                  position={currentPosition}
+                  position={[
+                    orphanage.address.latitude,
+                    orphanage.address.longitude,
+                  ]}
                   interactive={false}
                 />
               </MapContainer>
 
               <footer>
-                <Link to="/">See routes on Google Maps</Link>
+                <Link
+                  to={{
+                    pathname: `https://www.google.com/maps/search/?api=1&query=${orphanage.address.latitude},${orphanage.address.longitude}`,
+                  }}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  See routes on Google Maps
+                </Link>
               </footer>
             </div>
 
             <hr />
 
             <h2>Instructions to visit</h2>
-            <p>Instructions one, two, and three</p>
+            <p>{orphanage.instructions}</p>
 
             <div className="open-details">
               <div className="hour">
