@@ -25,6 +25,7 @@ const OrphanageShow: React.FC = () => {
     -3.7436121, -38.5194538,
   ]);
   const [orphanage, setOrphanage] = useState<Orphanage>({} as Orphanage);
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
 
   const params: { key: string } = useParams();
 
@@ -55,12 +56,19 @@ const OrphanageShow: React.FC = () => {
       <main>
         <div className="orphanage-details">
           {hasImages() && (
-            <img src={orphanage.images[0].url} alt={orphanage.name} />
+            <img
+              src={orphanage.images[selectedImageIndex].url}
+              alt={orphanage.name}
+            />
           )}
 
           <div className="images">
-            {orphanage.images.map((image) => (
-              <button className="active" type="button">
+            {orphanage.images.map((image, index) => (
+              <button
+                className={selectedImageIndex === index ? 'selected' : ''}
+                type="button"
+                onClick={() => setSelectedImageIndex(index)}
+              >
                 <img src={image.url} alt={orphanage.name} key={image.url} />
               </button>
             ))}

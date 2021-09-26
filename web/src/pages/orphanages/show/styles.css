@@ -44,7 +44,7 @@
   opacity: 0.6;
 }
 
-.orphanage-details .images button.active {
+.orphanage-details .images button.selected {
   opacity: 1;
 }
 
