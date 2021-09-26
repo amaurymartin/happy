@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { FiPlus } from 'react-icons/fi';
 
@@ -12,8 +12,21 @@ import './styles.css';
 const OrphanageNew: React.FC = () => {
   // eslint-disable-next-line no-unused-vars
   const [currentPosition, setCurrentPosition] = useState<[number, number]>([
-    -3.7436121, -38.5194538,
+    NaN,
+    NaN,
   ]);
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      setCurrentPosition([position.coords.latitude, position.coords.longitude]);
+    });
+  }, []);
+
+  function coordsLoaded() {
+    return (
+      !Number.isNaN(currentPosition[0]) && !Number.isNaN(currentPosition[1])
+    );
+  }
 
   return (
     <div id="orphanage-new">
@@ -24,22 +37,26 @@ const OrphanageNew: React.FC = () => {
           <fieldset>
             <legend>Infos</legend>
 
-            <MapContainer
-              center={currentPosition}
-              style={{ width: '100%', height: 280 }}
-              zoom={15}
-            >
-              <TileLayer
-                attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-              />
+            {coordsLoaded() ? (
+              <MapContainer
+                center={currentPosition}
+                style={{ width: '100%', height: 280 }}
+                zoom={15}
+              >
+                <TileLayer
+                  attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                />
 
-              <Marker
-                icon={mapMarker}
-                position={currentPosition}
-                interactive={false}
-              />
-            </MapContainer>
+                <Marker
+                  icon={mapMarker}
+                  position={currentPosition}
+                  interactive={false}
+                />
+              </MapContainer>
+            ) : (
+              <h1>LOADING MAP</h1>
+            )}
 
             <div className="input-block">
               <label htmlFor="name">
