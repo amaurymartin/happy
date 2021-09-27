@@ -1,16 +1,15 @@
-import { useEffect, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 
 import { FiPlus } from 'react-icons/fi';
 
-import { MapContainer, Marker, TileLayer } from 'react-leaflet';
+import { MapContainer, TileLayer } from 'react-leaflet';
 
 import Sidebar from '../../../components/sidebar';
-import mapMarker from '../../../utils/mapMarker';
+import MapMarker from '../../../components/map/marker';
 
 import './styles.css';
 
 const OrphanageNew: React.FC = () => {
-  // eslint-disable-next-line no-unused-vars
   const [currentPosition, setCurrentPosition] = useState<[number, number]>([
     NaN,
     NaN,
@@ -28,12 +27,16 @@ const OrphanageNew: React.FC = () => {
     );
   }
 
+  async function createOrphanage(event: FormEvent) {
+    event.preventDefault();
+  }
+
   return (
     <div id="orphanage-new">
       <Sidebar />
 
       <main>
-        <form className="orphanage-new-form">
+        <form className="orphanage-new-form" onSubmit={createOrphanage}>
           <fieldset>
             <legend>Infos</legend>
 
@@ -47,11 +50,9 @@ const OrphanageNew: React.FC = () => {
                   attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                   url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
-
-                <Marker
-                  icon={mapMarker}
-                  position={currentPosition}
-                  interactive={false}
+                <MapMarker
+                  currentPosition={currentPosition}
+                  setCurrentPosition={setCurrentPosition}
                 />
               </MapContainer>
             ) : (
