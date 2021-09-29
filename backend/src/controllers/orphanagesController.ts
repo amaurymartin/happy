@@ -219,9 +219,9 @@ class OrphanagesController {
         startsAt: schedule.startsAt,
         endsAt: schedule.endsAt,
       })),
-      images: orphanage.images.map((image) => ({
+      images: orphanage.images ? orphanage.images.map((image) => ({
         url: `http://127.0.0.1:${process.env.PORT}/uploads/orphanageImages/${image.path}`,
-      })),
+      })) : [],
     };
   }
 }
