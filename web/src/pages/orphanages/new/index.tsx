@@ -132,7 +132,7 @@ const OrphanageNew: React.FC = () => {
     await api
       .post('orphanages', payload)
       .then((response) => {
-        orphanageKey = response.data.key;
+        orphanageKey = response.data.orphanage.key;
         // eslint-disable-next-line no-alert
         alert('Orphanage created');
       })
@@ -142,6 +142,8 @@ const OrphanageNew: React.FC = () => {
         // eslint-disable-next-line no-alert
         alert('Error on creating orphanage. Check your data and try again');
       });
+
+    if (!orphanageKey || !images) return;
 
     const imagesPayload = new FormData();
     imagesPayload.append('images', images!);
