@@ -44,16 +44,24 @@ form.orphanage-new-form fieldset legend {
   border-bottom: 1px solid #d3e2e5;
   margin-bottom: 40px;
   padding-bottom: 24px;
+
+  display: flex;
+  justify-content: space-between;
 }
 
 form.orphanage-new-form .input-block + .input-block {
   margin-top: 24px;
 }
 
-form.orphanage-new-form .input-block label {
+form.orphanage-new-form .input-block label,
+form.orphanage-new-form .select-block label {
   color: #8fa7b3;
   margin-bottom: 8px;
   line-height: 24px;
+}
+
+form.orphanage-new-form .schedule {
+  margin-top: 24px;
 }
 
 form.orphanage-new-form .input-block label span {
@@ -64,7 +72,8 @@ form.orphanage-new-form .input-block label span {
 }
 
 form.orphanage-new-form .input-block input,
-form.orphanage-new-form .input-block textarea {
+form.orphanage-new-form .input-block textarea,
+form.orphanage-new-form .select-block select {
   width: 100%;
   background: #f5f8fa;
   border: 1px solid #d3e2e5;
@@ -84,6 +93,35 @@ form.orphanage-new-form .input-block textarea {
   resize: vertical;
   padding: 16px;
   line-height: 28px;
+}
+
+form.orphanage-new-form .select-block select {
+  height: 64px;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+form.orphanage-new-form button.add-schedule {
+  margin-top: -15px;
+
+  width: 42%;
+  height: 64px;
+  border: 0;
+  cursor: pointer;
+  background: #12afcb;
+  border-radius: 20px;
+  color: #ffffff;
+  font-weight: 700;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  transition: background-color 0.2s;
+}
+
+form.orphanage-new-form button.add-schedule:hover {
+  background: #17d6eb;
 }
 
 form.orphanage-new-form .input-block .new-image {

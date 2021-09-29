@@ -263,7 +263,17 @@ const OrphanageNew: React.FC = () => {
           </fieldset>
 
           <fieldset>
-            <legend>Visiting</legend>
+            <legend>
+              Visiting
+              <button
+                type="button"
+                className="add-schedule"
+                onClick={addSchedule}
+              >
+                <FiPlus size={24} color="#fff" />
+                Add schedule
+              </button>
+            </legend>
 
             <div className="input-block">
               <label htmlFor="instructions">
@@ -276,12 +286,7 @@ const OrphanageNew: React.FC = () => {
               </label>
             </div>
 
-            <button type="button" onClick={addSchedule}>
-              <FiPlus size={24} color="#15b6d6" />
-              Add schedule
-            </button>
-
-            {schedules.map((item, index) => (
+            {schedules.map((_item, index) => (
               // eslint-disable-next-line react/no-array-index-key
               <div key={index} className="schedule">
                 <div className="select-block">
@@ -293,7 +298,7 @@ const OrphanageNew: React.FC = () => {
                       onChange={(event) => fillScheduleData(event, index)}
                     >
                       <option value="" disabled hidden>
-                        Select the best day for you
+                        Select an open day
                       </option>
                       {[
                         { value: '0', label: 'Sunday' },
@@ -304,7 +309,9 @@ const OrphanageNew: React.FC = () => {
                         { value: '5', label: 'Friday' },
                         { value: '6', label: 'Saturday' },
                       ].map((option) => (
-                        <option value={option.value}>{option.label}</option>
+                        <option key={option.value} value={option.value}>
+                          {option.label}
+                        </option>
                       ))}
                     </select>
                   </label>
