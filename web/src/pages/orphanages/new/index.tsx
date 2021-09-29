@@ -36,7 +36,6 @@ const OrphanageNew: React.FC = () => {
     state: null,
     country: null,
     images: null,
-    schedules: null,
   });
   const [schedules, setSchedules] = useState<Schedule[]>([
     { weekDay: 0, startsAt: '', endsAt: '' },
@@ -61,10 +60,6 @@ const OrphanageNew: React.FC = () => {
       setFormData({ ...formData, [name]: value });
     } else if (event.target.nodeName === 'TEXTAREA') {
       const selectEvent = event as ChangeEvent<HTMLTextAreaElement>;
-      const { name, value } = selectEvent.target;
-      setFormData({ ...formData, [name]: value });
-    } else if (event.target.nodeName === 'SELECT') {
-      const selectEvent = event as ChangeEvent<HTMLSelectElement>;
       const { name, value } = selectEvent.target;
       setFormData({ ...formData, [name]: value });
     }
@@ -132,10 +127,6 @@ const OrphanageNew: React.FC = () => {
       },
     };
 
-    console.log('form', formData);
-    console.log('payload', payload);
-    return;
-
     // eslint-disable-next-line no-unreachable
     let orphanageKey;
     await api
@@ -151,9 +142,6 @@ const OrphanageNew: React.FC = () => {
         // eslint-disable-next-line no-alert
         alert('Error on creating orphanage. Check your data and try again');
       });
-
-    // eslint-disable-next-line no-unreachable
-    if (!orphanageKey) return;
 
     const imagesPayload = new FormData();
     imagesPayload.append('images', images!);
@@ -299,7 +287,11 @@ const OrphanageNew: React.FC = () => {
                 <div className="select-block">
                   <label htmlFor="weekDay">
                     Week Day
-                    <select name="weekDay" defaultValue="" onChange={fillForm}>
+                    <select
+                      name="weekDay"
+                      defaultValue=""
+                      onChange={(event) => fillScheduleData(event, index)}
+                    >
                       <option value="" disabled hidden>
                         Select the best day for you
                       </option>
@@ -312,9 +304,7 @@ const OrphanageNew: React.FC = () => {
                         { value: '5', label: 'Friday' },
                         { value: '6', label: 'Saturday' },
                       ].map((option) => (
-                        <option value={option.value}>
-                          {option.label}
-                        </option>
+                        <option value={option.value}>{option.label}</option>
                       ))}
                     </select>
                   </label>
