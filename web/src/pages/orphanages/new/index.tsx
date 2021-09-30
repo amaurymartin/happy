@@ -7,6 +7,7 @@ import {
 
 import { FiPlus } from 'react-icons/fi';
 
+import { useHistory } from 'react-router-dom';
 import { MapContainer, TileLayer } from 'react-leaflet';
 
 import Sidebar from '../../../components/sidebar';
@@ -19,6 +20,8 @@ import api from '../../../services/api';
 import './styles.css';
 
 const OrphanageNew: React.FC = () => {
+  const { goBack } = useHistory();
+
   const [currentPosition, setCurrentPosition] = useState<[number, number]>([
     NaN,
     NaN,
@@ -35,8 +38,9 @@ const OrphanageNew: React.FC = () => {
     city: null,
     state: null,
     country: null,
-    images: null,
   });
+  const [images, setImages] = useState<File[]>([]);
+  const [imagesPreview, setImagesPreview] = useState<string[]>([]);
   const [schedules, setSchedules] = useState<Schedule[]>([
     { weekDay: 0, startsAt: '', endsAt: '' },
   ]);
@@ -47,10 +51,22 @@ const OrphanageNew: React.FC = () => {
     });
   }, []);
 
+  useEffect(() => {
+    setImagesPreview(images.map((image) => URL.createObjectURL(image)));
+  }, [images]);
+
   function coordsLoaded() {
     return (
       !Number.isNaN(currentPosition[0]) && !Number.isNaN(currentPosition[1])
     );
+  }
+
+  function addImage(event: ChangeEvent<HTMLInputElement>) {
+    const { files } = event.target;
+
+    if (!files) return;
+
+    setImages(Array.from(files));
   }
 
   function fillForm(event: ChangeEvent<HTMLElement>) {
@@ -103,7 +119,6 @@ const OrphanageNew: React.FC = () => {
       city,
       state,
       country,
-      images,
     } = formData;
 
     const payload = {
@@ -124,6 +139,7 @@ const OrphanageNew: React.FC = () => {
           country,
         },
         schedules,
+        images,
       },
     };
 
@@ -143,10 +159,13 @@ const OrphanageNew: React.FC = () => {
         alert('Error on creating orphanage. Check your data and try again');
       });
 
-    if (!orphanageKey || !images) return;
+    if (!orphanageKey || images.length === 0) {
+      goBack();
+      return;
+    }
 
     const imagesPayload = new FormData();
-    imagesPayload.append('images', images!);
+    images.forEach((image) => imagesPayload.append('images', image));
 
     await api
       .post(`orphanages/${orphanageKey}/images`, imagesPayload)
@@ -158,6 +177,8 @@ const OrphanageNew: React.FC = () => {
         // eslint-disable-next-line no-alert
         alert('Error on uploading orphanage images. Please try again');
       });
+
+    goBack();
   }
 
   return (
@@ -192,10 +213,21 @@ const OrphanageNew: React.FC = () => {
               {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
               <label htmlFor="images">Images</label>
 
-              <div className="images-container" />
-              <button type="button" className="new-image">
-                <FiPlus size={24} color="#15b6d6" />
-              </button>
+              <div className="images-container">
+                {imagesPreview.map((preview) => (
+                  <img src={preview} alt={formData.name || ''} key={preview} />
+                ))}
+                {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+                <label htmlFor="images[]" className="new-image">
+                  <FiPlus size={24} color="#15b6d6" />
+                </label>
+              </div>
+              <input
+                type="file"
+                id="images[]"
+                multiple
+                onChange={(event) => addImage(event)}
+              />
             </div>
           </fieldset>
 
