@@ -54,10 +54,7 @@ const OrphanagesShow: React.FC = () => {
           >
             <Marker
               icon={mapMarker}
-              coordinate={{
-                latitude: -3.7436121,
-                longitude: -38.5194538,
-              }}
+              coordinate={{ latitude: -3.7436121, longitude: -38.5194538 }}
             />
           </MapView>
         </View>
