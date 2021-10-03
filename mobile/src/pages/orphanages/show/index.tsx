@@ -1,62 +1,86 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Image, ScrollView, Text, View } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
+import { RouteProp, useRoute } from '@react-navigation/native';
 
 import { Feather, FontAwesome } from '@expo/vector-icons';
 
 import mapMarker from '../../../assets/map/marker.png';
 
+import api from '../../../services/api';
+import Orphanage from '../../../@types/entities/orphanage';
+import OrphanagesShowResponse from '../../../@types/responses/orphanages/show';
+
 import styles from './styles';
 
+type OrphanagesShowParams = {
+  orphanage: {
+    key: string;
+  };
+};
+
 const OrphanagesShow: React.FC = () => {
+  const route = useRoute<RouteProp<OrphanagesShowParams, 'orphanage'>>();
+
+  const [orphanage, setOrphanage] = useState<Orphanage>({} as Orphanage);
+
+  useEffect(() => {
+    api
+      .get<OrphanagesShowResponse>(`orphanages/${route.params.key}`)
+      .then((response) => setOrphanage(response.data.orphanage))
+      .catch((response) => {
+        // eslint-disable-next-line no-console
+        console.log(response);
+        // eslint-disable-next-line no-alert
+        alert('Error on loading orphanage data. Please try again');
+      });
+  }, [route.params.key]);
+
   return (
     <ScrollView style={styles.container}>
       <View style={styles.imagesContainer}>
         <ScrollView horizontal pagingEnabled>
-          <Image
-            style={styles.image}
-            source={{
-              uri: 'https://www.gcd.com.br/wp-content/uploads/2020/08/safe_image.jpg',
-            }}
-          />
-          <Image
-            style={styles.image}
-            source={{
-              uri: 'https://www.gcd.com.br/wp-content/uploads/2020/08/safe_image.jpg',
-            }}
-          />
-          <Image
-            style={styles.image}
-            source={{
-              uri: 'https://www.gcd.com.br/wp-content/uploads/2020/08/safe_image.jpg',
-            }}
-          />
+          {orphanage.images.map((image, index) => (
+            <Image
+              // eslint-disable-next-line react/no-array-index-key
+              key={index}
+              style={styles.image}
+              source={{
+                uri: image.url,
+              }}
+            />
+          ))}
         </ScrollView>
       </View>
 
       <View style={styles.detailsContainer}>
-        <Text style={styles.title}>Orphanage name</Text>
-        <Text style={styles.description}>About Orphanage</Text>
+        <Text style={styles.title}>{orphanage.name}</Text>
+        <Text style={styles.description}>{orphanage.about}</Text>
 
         <View style={styles.mapContainer}>
-          <MapView
-            style={styles.map}
-            provider={PROVIDER_GOOGLE}
-            initialRegion={{
-              latitude: -3.7436121,
-              longitude: -38.5194538,
-              latitudeDelta: 0.033,
-              longitudeDelta: 0.033,
-            }}
-            pitchEnabled={false}
-          >
-            <Marker
-              icon={mapMarker}
-              coordinate={{ latitude: -3.7436121, longitude: -38.5194538 }}
-            />
-          </MapView>
+          {orphanage.address && (
+            <MapView
+              style={styles.map}
+              provider={PROVIDER_GOOGLE}
+              initialRegion={{
+                latitude: orphanage.address.latitude,
+                longitude: orphanage.address.longitude,
+                latitudeDelta: 0.0003,
+                longitudeDelta: 0.0003,
+              }}
+              pitchEnabled={false}
+            >
+              <Marker
+                icon={mapMarker}
+                coordinate={{
+                  latitude: orphanage.address.latitude,
+                  longitude: orphanage.address.longitude,
+                }}
+              />
+            </MapView>
+          )}
         </View>
 
         <View style={styles.routesContainer}>
@@ -66,7 +90,7 @@ const OrphanagesShow: React.FC = () => {
         <View style={styles.separator} />
 
         <Text style={styles.title}>Instructions to visit</Text>
-        <Text style={styles.description}>Orphanage instructions</Text>
+        <Text style={styles.description}>{orphanage.instructions}</Text>
 
         <View style={styles.scheduleContainer}>
           <View style={[styles.scheduleItem, styles.scheduleItemBlue]}>
