@@ -13,6 +13,7 @@
     "@expo-google-fonts/nunito": "^0.2.0",
     "@react-navigation/native": "^6.0.4",
     "@react-navigation/native-stack": "^6.2.2",
+    "axios": "^0.22.0",
     "expo": "~42.0.1",
     "expo-app-loading": "^1.1.2",
     "expo-font": "~9.2.1",
