@@ -10,22 +10,20 @@ import Map from './pages/orphanages/new/map';
 
 const { Navigator, Screen } = createNativeStackNavigator();
 
-const Routes: React.FC = () => {
-  return (
-    <NavigationContainer>
-      <Navigator
-        screenOptions={{
-          headerShown: false,
-          headerStyle: { backgroundColor: '#f2f3f5' },
-        }}
-      >
-        <Screen name="OrphanagesIndex" component={OrphanagesIndex} />
-        <Screen name="OrphanagesShow" component={OrphanagesShow} />
-        <Screen name="OrphanagesNew" component={OrphanagesNew} />
-        <Screen name="Map" component={Map} />
-      </Navigator>
-    </NavigationContainer>
-  );
-};
+const Routes: React.FC = () => (
+  <NavigationContainer>
+    <Navigator
+      screenOptions={{
+        headerShown: false,
+        headerStyle: { backgroundColor: '#f2f3f5' },
+      }}
+    >
+      <Screen name="OrphanagesIndex" component={OrphanagesIndex} />
+      <Screen name="OrphanagesShow" component={OrphanagesShow} />
+      <Screen name="OrphanagesNew" component={OrphanagesNew} />
+      <Screen name="Map" component={Map} />
+    </Navigator>
+  </NavigationContainer>
+);
 
 export default Routes;
