@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Text, TouchableOpacity, View } from 'react-native';
 import MapView, { Callout, Marker, PROVIDER_GOOGLE } from 'react-native-maps';
@@ -11,10 +11,29 @@ import mapMarker from '../../../assets/map/marker.png';
 
 import { Pages } from '../../pages';
 
+import OrphanagesIndexResponse from '../../../@types/responses/orphanages/index';
+import Orphanage from '../../../@types/entities/orphanage';
+
+import api from '../../../services/api';
+
 import styles from './styles';
 
 const OrphanagesIndex: React.FC = () => {
   const { navigate } = useNavigation<NativeStackNavigationProp<Pages>>();
+
+  const [orphanages, setOrphanages] = useState<Orphanage[]>([]);
+
+  useEffect(() => {
+    api
+      .get<OrphanagesIndexResponse>('orphanages')
+      .then((response) => setOrphanages(response.data.orphanages))
+      .catch((response) => {
+        // eslint-disable-next-line no-console
+        console.log(response);
+        // eslint-disable-next-line no-alert
+        alert('Error on loading orphanages. Please try again');
+      });
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -28,23 +47,31 @@ const OrphanagesIndex: React.FC = () => {
           longitudeDelta: 0.033,
         }}
       >
-        <Marker
-          icon={mapMarker}
-          coordinate={{
-            latitude: -3.7436121,
-            longitude: -38.5194538,
-          }}
-        >
-          <Callout tooltip onPress={() => navigate('OrphanagesShow')}>
-            <View style={styles.calloutContainer}>
-              <Text style={styles.calloutText}>Orphanage Test</Text>
-            </View>
-          </Callout>
-        </Marker>
+        {orphanages.map((orphanage) => (
+          <Marker
+            key={orphanage.key}
+            icon={mapMarker}
+            coordinate={{
+              latitude: orphanage.address.latitude,
+              longitude: orphanage.address.longitude,
+            }}
+          >
+            <Callout
+              tooltip
+              onPress={() => navigate('OrphanagesShow', { key: orphanage.key })}
+            >
+              <View style={styles.calloutContainer}>
+                <Text style={styles.calloutText}>{orphanage.name}</Text>
+              </View>
+            </Callout>
+          </Marker>
+        ))}
       </MapView>
 
       <View style={styles.footer}>
-        <Text style={styles.footerText}>Footer text</Text>
+        <Text style={styles.footerText}>
+          {orphanages.length} orphanages found
+        </Text>
 
         <TouchableOpacity
           style={styles.newOrphanageButton}
