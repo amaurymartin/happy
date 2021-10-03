@@ -35,12 +35,7 @@ const OrphanagesIndex: React.FC = () => {
             longitude: -38.5194538,
           }}
         >
-          <Callout
-            tooltip
-            onPress={() => {
-              navigate('OrphanagesShow');
-            }}
-          >
+          <Callout tooltip onPress={() => navigate('OrphanagesShow')}>
             <View style={styles.calloutContainer}>
               <Text style={styles.calloutText}>Orphanage Test</Text>
             </View>
@@ -51,7 +46,10 @@ const OrphanagesIndex: React.FC = () => {
       <View style={styles.footer}>
         <Text style={styles.footerText}>Footer text</Text>
 
-        <TouchableOpacity style={styles.newOrphanageButton} onPress={() => {}}>
+        <TouchableOpacity
+          style={styles.newOrphanageButton}
+          onPress={() => navigate('OrphanagesNew')}
+        >
           <Feather name="plus" size={20} color="#fff" />
         </TouchableOpacity>
       </View>
