@@ -5,7 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import OrphanagesIndex from './pages/orphanages/index';
 import OrphanagesShow from './pages/orphanages/show';
-import OrphanagesNew from './pages/orphanages/new/info';
+import OrphanagesNew from './pages/orphanages/new';
 import Map from './pages/orphanages/new/map';
 
 const { Navigator, Screen } = createNativeStackNavigator();
