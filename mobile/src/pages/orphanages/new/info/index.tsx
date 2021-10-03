@@ -4,12 +4,12 @@ import { Text, View } from 'react-native';
 
 import styles from './styles';
 
-const Info: React.FC = () => {
+const OrphanageNew: React.FC = () => {
   return (
     <View style={styles.container}>
-      <Text>Info</Text>
+      <Text>OrphanageNew</Text>
     </View>
   );
 };
 
-export default Info;
+export default OrphanageNew;

@@ -5,7 +5,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import OrphanagesIndex from './pages/orphanages/index';
 import OrphanagesShow from './pages/orphanages/show';
-import OrphanagesNew from './pages/orphanages/new';
+import OrphanagesNew from './pages/orphanages/new/info';
+import Map from './pages/orphanages/new/map';
 
 const { Navigator, Screen } = createNativeStackNavigator();
 
@@ -21,6 +22,7 @@ const Routes: React.FC = () => {
         <Screen name="OrphanagesIndex" component={OrphanagesIndex} />
         <Screen name="OrphanagesShow" component={OrphanagesShow} />
         <Screen name="OrphanagesNew" component={OrphanagesNew} />
+        <Screen name="Map" component={Map} />
       </Navigator>
     </NavigationContainer>
   );

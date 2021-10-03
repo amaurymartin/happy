@@ -48,7 +48,7 @@ const OrphanagesIndex: React.FC = () => {
 
         <TouchableOpacity
           style={styles.newOrphanageButton}
-          onPress={() => navigate('OrphanagesNew')}
+          onPress={() => navigate('Map')}
         >
           <Feather name="plus" size={20} color="#fff" />
         </TouchableOpacity>

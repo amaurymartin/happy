@@ -8,7 +8,7 @@ import { RectButton } from 'react-native-gesture-handler';
 
 import { Pages } from '../../../pages';
 
-import mapMarker from '../../../assets/map/marker.png';
+import mapMarker from '../../../../assets/map/marker.png';
 
 import styles from './styles';
 
