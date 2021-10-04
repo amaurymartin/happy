@@ -1,6 +1,6 @@
 export type Pages = {
   OrphanagesIndex: undefined;
   OrphanagesShow: { key: string };
-  OrphanagesNew: undefined;
+  OrphanagesNew: { latitude: number; longitude: number };
   Map: undefined;
 };

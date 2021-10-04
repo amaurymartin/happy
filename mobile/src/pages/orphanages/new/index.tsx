@@ -9,12 +9,22 @@ import {
   View,
 } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler';
+import { RouteProp, useRoute } from '@react-navigation/native';
 
 import { Feather } from '@expo/vector-icons';
 
 import styles from './styles';
 
+type OrphanagesNewParams = {
+  position: {
+    latitude: number;
+    longitude: number;
+  };
+};
+
 const OrphanageNew: React.FC = () => {
+  const route = useRoute<RouteProp<OrphanagesNewParams, 'position'>>();
+
   return (
     <ScrollView
       style={styles.container}
