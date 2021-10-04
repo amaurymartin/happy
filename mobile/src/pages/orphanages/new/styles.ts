@@ -36,6 +36,17 @@ const styles = StyleSheet.create({
 
     textAlignVertical: 'top',
   },
+  uploadedImagesContainer: {
+    flexDirection: 'row',
+  },
+  image: {
+    width: 64,
+    height: 64,
+
+    marginBottom: 32,
+    marginRight: 8,
+    borderRadius: 20,
+  },
   imagesInput: {
     height: 56,
     marginBottom: 32,
