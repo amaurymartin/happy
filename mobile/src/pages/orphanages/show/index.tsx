@@ -42,7 +42,7 @@ const OrphanagesShow: React.FC = () => {
     <ScrollView style={styles.container}>
       <View style={styles.imagesContainer}>
         <ScrollView horizontal pagingEnabled>
-          {orphanage.images.map((image, index) => (
+          {orphanage.images?.map((image, index) => (
             <Image
               // eslint-disable-next-line react/no-array-index-key
               key={index}
