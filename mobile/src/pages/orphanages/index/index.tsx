@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import { Text, TouchableOpacity, View } from 'react-native';
 import MapView, { Callout, Marker, PROVIDER_GOOGLE } from 'react-native-maps';
-import { useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 import { Feather } from '@expo/vector-icons';
@@ -23,7 +23,7 @@ const OrphanagesIndex: React.FC = () => {
 
   const [orphanages, setOrphanages] = useState<Orphanage[]>([]);
 
-  useEffect(() => {
+  useFocusEffect(() => {
     api
       .get<OrphanagesIndexResponse>('orphanages')
       .then((response) => setOrphanages(response.data.orphanages))
@@ -33,7 +33,7 @@ const OrphanagesIndex: React.FC = () => {
         // eslint-disable-next-line no-alert
         alert('Error on loading orphanages. Please try again');
       });
-  }, []);
+  });
 
   return (
     <View style={styles.container}>
