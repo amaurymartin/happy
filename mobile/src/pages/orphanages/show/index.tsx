@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from 'react';
 
-import { Image, ScrollView, Text, View } from 'react-native';
+import {
+  Image,
+  Linking,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import { RectButton } from 'react-native-gesture-handler';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import { RouteProp, useRoute } from '@react-navigation/native';
@@ -83,9 +90,16 @@ const OrphanagesShow: React.FC = () => {
           )}
         </View>
 
-        <View style={styles.routesContainer}>
+        <TouchableOpacity
+          style={styles.routesContainer}
+          onPress={() =>
+            Linking.openURL(
+              `https://www.google.com/maps/search/?api=1&query=${orphanage.address.latitude},${orphanage.address.longitude}`
+            )
+          }
+        >
           <Text style={styles.routesText}>See routes on Google Maps</Text>
-        </View>
+        </TouchableOpacity>
 
         <View style={styles.separator} />
 
